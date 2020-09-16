@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Symfony - CQRS-ES Demonstration{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+    {% include 'header.html.twig' %}
+{% endblock %}
+
+<div class="container">
+    <div class="main-wrapper">
+        {% block flashMessages %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }}">{{message}}</div>
+                {% endfor %}
+            {% endfor %}
+        {% endblock %}
+
+        {% block body %}{% endblock %}
+    </div>
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('build/app.js') }}"></script>
+{% endblock %}
+</body>
+</html>

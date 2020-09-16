@@ -1,0 +1,6 @@
+resources:
+  App\Entity\Order:
+    shortName: 'Order'                    # optional
+    description: 'Order from restaurant'  # optional
+    attributes:                           # optional
+      pagination_items_per_page: 25       # optional

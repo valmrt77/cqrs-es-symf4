@@ -1,0 +1,57 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+        # controllers are imported separately to make sure services can be injected
+        # as action arguments even if you don't extend any base controller class
+        App\Infrastructure\Controller\:
+            resource: '../src/Infrastructure/Controller'
+            tags: [ 'controller.service_arguments' ]
+
+        App\Application\Command\Handler\:
+            resource: '../src/Application/Command/Handler'
+            tags: [ 'messenger.message_handler' ]
+
+        App\Application\Query\Handler\:
+            resource: '../src/Application/Query/Handler'
+            tags: [ 'messenger.message_handler' ]
+
+        App\Infrastructure\:
+            resource: '../src/Infrastructure/*'
+            exclude: '../src/Infrastructure/{Migrations,UI}'
+
+        App\Infrastructure\Serializer\SerializerFactory:
+            arguments:
+                - '%kernel.project_dir%/var/cache/serializer'
+                - '%kernel.debug%'
+                - '%infra_dir%/Serializer/Mapping'
+
+        JMS\Serializer\Serializer:
+            factory: 'SfCQRSDemo\Infrastructure\Serializer\SerializerFactory:create'
+
+        JMS\Serializer\SerializerInterface: '@JMS\Serializer\Serializer'
+
+        App\Shared\EventStore: '@SfCQRSDemo\Infrastructure\Persistence\MySQLEventStore'
+
+        App\Model\Order\OrderRepository: '@SfCQRSDemo\Infrastructure\Persistence\OrderRepository'
+
+        App\Model\Order\OrderProjection: '@SfCQRSDemo\Infrastructure\Projection\OrderProjection'
+
+        App\Model\Order\OrderQueryRepository: '@SfCQRSDemo\Infrastructure\Persistence\OrderQueryRepository'
+
+        App\Infrastructure\Persistence\ProductViewMapper:
+            arguments: [ '%public_dir%', '%images_dir%', '%no_image%' ]
+
+        App\Infrastructure\Service\ImageService:
+            arguments: [ '%image_crop_size%', '%public_dir%/%images_dir%' ]
+
+        App\Application\Service\ImageService: '@SfCQRSDemo\Infrastructure\Service\ImageService'
