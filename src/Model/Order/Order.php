@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model\Order;
 
-use App\Repository\OrderRepository;
+use App\Model\Order\OrderRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
