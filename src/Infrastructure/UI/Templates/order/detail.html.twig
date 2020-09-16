@@ -1,4 +1,4 @@
-{# @var \SfCQRSDemo\Model\Product\ProductView product #}
+{# @var \SfCQRSDemo\Model\Product\ProductView order #}
 {% extends 'base.html.twig' %}
 
 {% block title product.name %}
@@ -27,6 +27,6 @@
     {% if product.images|slice(1)|length %}
         <h2>{{ 'product_images'|trans }}</h2>
 
-        {% include 'product/images_list.html.twig' with {images: product.images|slice(1)} %}
+        {% include 'order/images_list.html.twig' with {images: product.images|slice(1)} %}
     {% endif %}
 {% endblock %}

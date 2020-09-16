@@ -1,8 +1,8 @@
-{# @var \SfCQRSDemo\Model\Product\ProductView product #}
+{# @var \SfCQRSDemo\Model\Product\ProductView order #}
 
 {% extends 'base.html.twig' %}
 
-{% set pageTitle = 'upload_image_for_product'|trans({'%product%': product.name}) %}
+{% set pageTitle = 'upload_image_for_product'|trans({'%order%': product.name}) %}
 
 {% block title pageTitle %}
 
@@ -17,6 +17,6 @@
     {% if product.images|length %}
         <h2>{{ 'uploaded_images'|trans }}</h2>
 
-        {% include 'product/images_list.html.twig' with {productId: product.id, images: product.images, defaultImage: null, control: true} %}
+        {% include 'order/images_list.html.twig' with {productId: product.id, images: product.images, defaultImage: null, control: true} %}
     {% endif %}
 {% endblock %}
