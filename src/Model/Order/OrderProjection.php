@@ -1,20 +1,14 @@
 <?php
 
-
 namespace App\Model\Order;
 
 use App\Shared\Projection;
 
-class OrderProjection extends Projection
+class OrderProjection implements Projection
 {
+    public function projectWhenOrderWasCreated(OrderWasCreated $event){}
 
-    public function projectWhenProductWasCreated(ProductWasCreated $event);
+    public function projectWhenOrderNameWasChanged(OrderPlateIdWasChanged $event){}
 
-    public function projectWhenProductNameWasChanged(ProductNameWasChanged $event);
-
-    public function projectWhenProductPriceWasChanged(ProductPriceWasChanged $event);
-
-    public function projectWhenProductDescriptionWasChanged(ProductDescriptionWasChanged $event);
-
-    public function projectWhenImageWasAdded(ImageWasAdded $event);
+    public function projectWhenProductPriceWasChanged(OrderCustomerNameWasChanged $event){}
 }

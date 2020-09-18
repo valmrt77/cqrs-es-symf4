@@ -6,7 +6,7 @@ use App\Model\Order\OrderRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
-use SfCQRSDemo\Model\Product\ProductPriceWasChanged;
+use SfCQRSDemo\Model\Product\OrderCustomerNameWasChanged;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -121,7 +121,7 @@ class Order
 
         }
         $this->applyAndRecordThat(
-            new ProductPriceWasChanged($this->id, $newCustomer)
+            new OrderCustomerNameWasChanged($this->id, $newCustomer)
         );
     }
 

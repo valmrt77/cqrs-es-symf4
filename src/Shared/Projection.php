@@ -4,5 +4,5 @@ namespace App\Shared;
 
 interface Projection
 {
-    public function project(DomainEvents $events);
+    public function project(\App\Shared\DomainEvents $recordedEvents);
 }
