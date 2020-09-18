@@ -2,9 +2,9 @@
 
 namespace App\CommandHandler;
 
-use App\Command\DeleteOrder;
+use App\Command\DeleteOrderCommand;
 
 interface DeleteOrderCommandHandlerInterface
 {
-    public function __invoke(DeleteOrder $deleteOrder);
+    public function __invoke(DeleteOrderCommand $deleteOrder);
 }

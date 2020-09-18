@@ -2,8 +2,10 @@
 
 namespace App\Application\Command\Handler;
 
+use App\Model\Order\OrderId;
 use App\Model\Order\OrderRepository;
-use SfCQRSDemo\Application\Command\Handler\AbstractCommandHandler;
+use App\Application\Command\DeleteOrderCommand;
+use App\Application\Command\Handler\AbstractCommandHandler;
 
 class DeleteOrderHandler extends AbstractCommandHandler
 {
@@ -14,6 +16,11 @@ class DeleteOrderHandler extends AbstractCommandHandler
     public function __construct(OrderRepository $orderRepository)
     {
         parent::__construct($orderRepository);
+    }
+
+    public function __invoke(DeleteOrderCommand $command)
+    {
+        dump($command);
     }
 }
 

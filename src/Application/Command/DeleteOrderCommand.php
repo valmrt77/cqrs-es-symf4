@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Command;
+namespace App\Application\Command;
 
-class DeleteOrder
+class DeleteOrderCommand
 {
     /**
      * @var int

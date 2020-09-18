@@ -2,7 +2,7 @@
 
 namespace App\CommandHandler\Orm;
 
-use App\Command\DeleteOrder;
+use App\Command\DeleteOrderCommand;
 use App\CommandHandler\DeleteOrderCommandHandlerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Repository\OrderRepository;
@@ -20,11 +20,11 @@ class DeleteOrderCommandHandler implements DeleteOrderCommandHandlerInterface
     }
 
     /**
-     * @param DeleteOrder $deleteOrder
+     * @param DeleteOrderCommand $deleteOrder
      *
      * @throws NotFoundHttpException
      */
-    public function __invoke(DeleteOrder $deleteOrder)
+    public function __invoke(DeleteOrderCommand $deleteOrder)
     {
         $order = $this->orderRepository->findOneBy(['id' => $deleteOrder->getId()]);
 
