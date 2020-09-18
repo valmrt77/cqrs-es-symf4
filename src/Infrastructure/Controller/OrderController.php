@@ -40,9 +40,8 @@ class OrderController extends AbstractController
 
             $orderCommand = new AddOrderCommand(
                 $orderId,
-                $data[OrderFormType::NAME],
-                $data[OrderFormType::PRICE],
-                $data[OrderFormType::DESCRIPTION]
+                $data[OrderFormType::PLATE],
+                $data[OrderFormType::CUSTOMER_NAME]
             );
 
             $this->handleMessage($orderCommand);

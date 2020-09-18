@@ -1,15 +1,15 @@
 <?php
 
-namespace SfCQRSDemo\Infrastructure\Persistence;
+namespace App\Infrastructure\Persistence;
 
-use SfCQRSDemo\Model\Product\Product;
-use SfCQRSDemo\Model\Product\ProductProjection;
-use SfCQRSDemo\Model\Product\ProductRepository as ProductRepositoryPort;
-use SfCQRSDemo\Shared\AggregateId;
-use SfCQRSDemo\Shared\EventStore;
-use SfCQRSDemo\Shared\RecordsEvents;
+use App\Model\Order\Order;
+use App\Model\Order\OrderProjection;
+use App\Model\Order\OrderRepository as OrderRepositoryPort;
+use App\Shared\AggregateId;
+use App\Shared\EventStore;
+use App\Shared\RecordsEvents;
 
-class ProductRepository implements ProductRepositoryPort
+class OrderRepository implements OrderRepositoryPort
 {
     /**
      * @var EventStore
@@ -17,11 +17,11 @@ class ProductRepository implements ProductRepositoryPort
     private $eventStore;
 
     /**
-     * @var ProductProjection
+     * @var OrderProjection
      */
     private $projection;
 
-    public function __construct(EventStore $eventStore, ProductProjection $projection)
+    public function __construct(EventStore $eventStore, OrderProjection $projection)
     {
         $this->eventStore = $eventStore;
         $this->projection = $projection;
@@ -40,6 +40,6 @@ class ProductRepository implements ProductRepositoryPort
     {
         $events = $this->eventStore->get($id);
 
-        return Product::reconstituteFromHistory($events);
+        return Order::reconstituteFromHistory($events);
     }
 }

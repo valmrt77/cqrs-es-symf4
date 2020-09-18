@@ -1,15 +1,15 @@
 <?php
 
-namespace SfCQRSDemo\Infrastructure\Persistence;
+namespace App\Infrastructure\Persistence;
 
 use DateTimeImmutable;
 use Doctrine\DBAL\Connection;
-use JMS\Serializer\SerializerInterface;
 use SfCQRSDemo\Shared\AggregateId;
 use SfCQRSDemo\Shared\DomainEvent;
 use SfCQRSDemo\Shared\DomainEvents;
 use SfCQRSDemo\Shared\DomainEventsHistory;
 use SfCQRSDemo\Shared\EventStore;
+use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 class MySQLEventStore implements EventStore
 {

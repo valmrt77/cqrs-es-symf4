@@ -6,7 +6,7 @@ use App\Entity\Order;
 
 interface OrderQueryRepository
 {
-    public function get(string $id): Order;
+    public function get(int $id): Order;
 
     /**
      * @param int $page

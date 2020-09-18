@@ -6,6 +6,7 @@ use App\Model\Order\OrderRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
+use SfCQRSDemo\Model\Product\ProductPriceWasChanged;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -101,4 +102,53 @@ class Order
         return $this;
     }
 
+
+    public function changePlateId(string $newPlate)
+    {
+        if ($newPlate === $this->plateId){
+            return;
+        }
+
+        $this->applyAndRecordThat(
+            new PlateIdWasChanged($this->id, $newPlate)
+        );
+    }
+
+    public function changeCustomerName(float $newCustomer)
+    {
+        if ($newCustomer === $this->customerName) {
+            return;
+
+        }
+        $this->applyAndRecordThat(
+            new ProductPriceWasChanged($this->id, $newCustomer)
+        );
+    }
+
+    public static function reconstituteFromHistory(DomainEventsHistory $eventsHistory)
+    {
+        $order = static::createEmptyOrderWithId($eventsHistory->getAggregateId());
+
+        foreach ($eventsHistory as $event) {
+            $order->apply($event);
+        }
+
+        return $order;
+    }
+
+    protected function applyOrderWasCreated(OrderWasCreated $event)
+    {
+        $this->plateId = $event->getPlateId();
+        $this->customerName = $event->getCustomerName();
+    }
+
+    protected function applyOrderPlateIdWasChanged(OrderPlateIdWasChanged $event)
+    {
+        $this->plateId = $event->getPlateId();
+    }
+
+    protected function applyOrderCustomerNameWasChanged(OrderCustomerNameWasChanged $event)
+    {
+        $this->customerName = $event->getCustomerName();
+    }
 }
